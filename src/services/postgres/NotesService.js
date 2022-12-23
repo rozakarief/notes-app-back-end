@@ -43,11 +43,12 @@ class NotesService {
     };
     const result = await this._pool.query(query);
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError("Catatan tidak ditemukan");
     }
 
-    return result.rows.map(mapDBToModel)[0];
+    // return result.rows.map(mapDBToModel)[0];
+    return mapDBToModel(result.rows[0]);
   }
 
   async editNoteById(id, { title, body, tags }) {
@@ -59,7 +60,7 @@ class NotesService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError("Gagal memperbarui catatan. Id tidak ditemukan");
     }
   }
@@ -72,7 +73,7 @@ class NotesService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError("Catatan gagal dihapus. Id tidak ditemukan");
     }
   }

@@ -6,4 +6,5 @@ const NotePayloadSchema = Joi.object({
   body: Joi.string().required(),
   tags: Joi.array().items(Joi.string()).required(),
 });
+
 module.exports = { NotePayloadSchema };
